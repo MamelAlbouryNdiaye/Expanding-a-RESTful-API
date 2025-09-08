@@ -55,4 +55,16 @@ router.patch("/:id", (req, res, next) => {
   else next(error(404, "Comment Not Found"));
 });
 
+/////////////////////// DELETE /comments/:id//////////////////
+router.delete("/:id", (req, res, next) => {
+  const comment = comments.find((c, i) => {
+    if (c.id == req.params.id) {
+      comments.splice(i, 1);
+      return true;
+    }
+  });
+  if (comment) res.json(comment);
+  else next(error(404, "Comment Not Found"));
+});
+
 module.exports = router;
