@@ -34,4 +34,13 @@ router.post("/", (req, res, next) => {
   }
 });
 
+///////////////// GET /comments/:id ////////////////////////////
+router.get("/:id", (req, res, next) => {
+  const comment = comments.find(c => c.id == req.params.id);
+  if (comment) res.json(comment);
+  else next(error(404, "Comment Not Found"));
+});
+
+
+
 module.exports = router;
