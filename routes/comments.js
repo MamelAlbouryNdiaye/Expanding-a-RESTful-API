@@ -41,6 +41,18 @@ router.get("/:id", (req, res, next) => {
   else next(error(404, "Comment Not Found"));
 });
 
-
+///////////////////// PATCH /comments/:id ///////////////////////
+router.patch("/:id", (req, res, next) => {
+  const comment = comments.find((c, i) => {
+    if (c.id == req.params.id) {
+      for (const key in req.body) {
+        comments[i][key] = req.body[key];
+      }
+      return true;
+    }
+  });
+  if (comment) res.json(comment);
+  else next(error(404, "Comment Not Found"));
+});
 
 module.exports = router;
