@@ -18,4 +18,20 @@ router.get("/", (req, res) => {
   res.json({ comments: results });
 });
 
+///////////////////////// POST comments ////////////////////////
+router.post("/", (req, res, next) => {
+  if (req.body.userId && req.body.postId && req.body.body) {
+    const comment = {
+      id: comments.length ? comments[comments.length - 1].id + 1 : 1,
+      userId: req.body.userId,
+      postId: req.body.postId,
+      body: req.body.body,
+    };
+    comments.push(comment);
+    res.json(comment);
+  } else {
+    next(error(400, "Insufficient Data"));
+  }
+});
+
 module.exports = router;
